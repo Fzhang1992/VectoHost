@@ -1,4 +1,4 @@
-# VirusHost3Class
+# VectoHost
 
 Training and evaluation code for predicting viral host groups: **Insect**, **Plant**, and **Other**. This project supports insect virome studies by distinguishing host categories among viruses detected in insect sequencing data.
 

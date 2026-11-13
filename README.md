@@ -1,4 +1,4 @@
-# VirusHost3Class
+# VectoHost
 
 **Three-class viral host-category prediction from nucleotide sequences**
 

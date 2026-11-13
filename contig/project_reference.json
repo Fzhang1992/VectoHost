@@ -1,0 +1,49 @@
+{
+  "labels": {
+    "Insect": 0,
+    "Plant": 1,
+    "Other": 2
+  },
+  "lengths": [
+    "1000bp",
+    "3000bp",
+    "5000bp",
+    "full_length"
+  ],
+  "representations": {
+    "1mer": 4,
+    "2mer": 16,
+    "3mer": 64,
+    "4mer": 256,
+    "ESM2": 320,
+    "LucaVirus": 2560
+  },
+  "classifiers": [
+    "RandomForest",
+    "KNN",
+    "SVM",
+    "GaussianNB"
+  ],
+  "seed_cv": 20260914,
+  "folds": 5,
+  "balance": "RandomUnderSampler(sampling_strategy=all, random_state=seed+fold) ONLY on training fold",
+  "final_auc": "pooled OOF macro OvR; exclude cross-host TaxIDs; round probabilities to 6 decimals",
+  "historic_slicing": "Other SHA256(seed|taxid|n), first 8 bytes big-endian modulo; historical Insect/Plant slices were reused; exact seed and original fragments needed",
+  "cross_host_taxids": [
+    "1277443",
+    "228582",
+    "2170100",
+    "1985699",
+    "12287",
+    "223287",
+    "1795442",
+    "3052585",
+    "1774200",
+    "187978",
+    "10991",
+    "10986",
+    "11307",
+    "12851"
+  ],
+  "reference_purpose": "Manuscript comparison and model specification; actual metric equality requires authentic inputs and checkpoints."
+}

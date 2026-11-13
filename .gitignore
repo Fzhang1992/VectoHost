@@ -1,0 +1,15 @@
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+.DS_Store
+# training inputs and outputs
+*.npy
+*.npz
+*.pt
+*.pth
+*.joblib
+*.pkl
+results/
+log/
+logs/
+*.log

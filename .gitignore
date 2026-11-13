@@ -1,0 +1,16 @@
+config.env
+external/
+work/
+logs/
+.pytest_cache/
+.mypy_cache/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.DS_Store
+input/full_length/*.fasta
+input/full_length/*.fna
+input/full_length/*.gz
+models/*.joblib
+*.pt
+*.npy

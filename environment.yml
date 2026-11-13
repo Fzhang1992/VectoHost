@@ -1,0 +1,17 @@
+name: virushost3class
+channels:
+  - conda-forge
+dependencies:
+  - python=3.9.13
+  - pip
+  - git
+  - pip:
+      - numpy>=1.24,<3
+      - pandas>=2.0,<3
+      - scipy>=1.11,<2
+      - scikit-learn==1.6.1
+      - imbalanced-learn>=0.12,<0.15
+      - joblib>=1.3,<2
+      - pytest>=7,<10
+      - fair-esm==2.0.0
+      - torch>=2.0

@@ -1,0 +1,2 @@
+length	Feature	Model	AUC	ACC	Recall	Precision	F1
+1000bp	3mer	GaussianNB	1.0	1.0	1.0	1.0	1.0

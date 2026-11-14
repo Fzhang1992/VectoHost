@@ -2,13 +2,22 @@
 
 The pipeline accepts three multi-record FASTA files, one per host-category label. The three inputs must contain the **already curated, one-record-per-virus-TaxID** full-length nucleotide sequences.
 
-```text
-input/full_length/Insect_full_length.fasta
-input/full_length/Plant_full_length.fasta
-input/full_length/Other_full_length.fasta
+| Repository file | FASTA path used by the pipeline |
+|---|---|
+| [`Insect_full_length.zip`](https://github.com/Fzhang1992/VectoHost/blob/main/Insect_full_length.zip) | `input/full_length/Insect_full_length.fasta` |
+| [`Plant_full_length.fasta`](https://github.com/Fzhang1992/VectoHost/blob/main/Plant_full_length.fasta) | `input/full_length/Plant_full_length.fasta` |
+| [`Other_full_length.zip`](https://github.com/Fzhang1992/VectoHost/blob/main/Other_full_length.zip) | `input/full_length/Other_full_length.fasta` |
+
+`Insect_full_length.zip` contains `Insect_full_length.fasta`. `Other_full_length.zip` contains `full_length/Other_full_length.fasta` and uses Git LFS, so a Git clone must fetch the actual archive rather than retaining its small pointer file. From the repository root, run:
+
+```bash
+mkdir -p input/full_length
+cp Plant_full_length.fasta input/full_length/
+unzip -o Insect_full_length.zip -d input/full_length/
+unzip -o Other_full_length.zip -d input/
 ```
 
-`.fasta.gz` is also accepted. Headers must start with a unique numeric virus TaxID, such as `>123456|virus=name`; TaxIDs must not be duplicated across input classes. The scripts do not select strain accessions, align genomic segments, or redownload Virus-Host DB: those decisions must be resolved before the three input collections are created.
+The default `INSECT_FASTA`, `PLANT_FASTA`, and `OTHER_FASTA` values in `config.example.env` match these extracted paths. ZIP archives are not supported as direct inputs; plain `.fasta` and gzip-compressed FASTA are accepted. Headers must start with a unique numeric virus TaxID, such as `>123456|virus=name`; TaxIDs must not be duplicated across input classes. The scripts do not select strain accessions, align genomic segments, or redownload Virus-Host DB: those decisions must be resolved before the three input collections are created.
 
 ## Research collection sizes
 

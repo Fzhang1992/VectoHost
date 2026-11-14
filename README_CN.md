@@ -1,4 +1,4 @@
-# VirusHost3Class：病毒宿主三分类模型
+# VectoHost：病毒宿主三分类模型
 
 [English](README.md) · [安装模型](docs/INSTALL.md) · [方法细节](docs/METHODS.md) · [复现说明](docs/REPRODUCIBILITY.md)
 
@@ -34,7 +34,7 @@ python scripts/example_run.py
 
 ## 3. 完整研究流程
 
-将已选好代表序列的三份全长 FASTA 放到：
+仓库根目录直接提供 [`Plant_full_length.fasta`](https://github.com/Fzhang1992/VectoHost/blob/main/Plant_full_length.fasta)，另外两份数据分别以 [`Insect_full_length.zip`](https://github.com/Fzhang1992/VectoHost/blob/main/Insect_full_length.zip) 和 [`Other_full_length.zip`](https://github.com/Fzhang1992/VectoHost/blob/main/Other_full_length.zip) 提供。下载后，将解压得到的三份 FASTA 放到：
 
 ```text
 input/full_length/Insect_full_length.fasta
@@ -42,9 +42,18 @@ input/full_length/Plant_full_length.fasta
 input/full_length/Other_full_length.fasta
 ```
 
-Other 也支持 `.fasta.gz`。FASTA 每条序列标题以唯一的数字病毒 TaxID 开头，例如 `>123456|virus=example`。分节段病毒需在输入前按研究选定的片段顺序拼接。详细要求见 [DATA](docs/DATA.md)。
+`Insect_full_length.zip` 内是 `Insect_full_length.fasta`；`Other_full_length.zip` 内是 `full_length/Other_full_length.fasta`。在仓库根目录执行以下命令，解压后的路径便与 `config.example.env` 中的默认设置一致：
 
-编辑 `config.env` 中的输入路径和切片参数。确认模型源码、权重能够访问后执行：
+```bash
+mkdir -p input/full_length
+cp Plant_full_length.fasta input/full_length/
+unzip -o Insect_full_length.zip -d input/full_length/
+unzip -o Other_full_length.zip -d input/
+```
+
+`Other_full_length.zip` 使用 Git LFS 存储；克隆仓库时需确保下载到真正的 ZIP 文件，而非很小的 LFS 指针文件。`.zip` 不能直接作为程序输入。若按上述位置放置文件，`config.env` 的 FASTA 路径无需修改。FASTA 每条序列标题以唯一的数字病毒 TaxID 开头，例如 `>123456|virus=example`。分节段病毒需在输入前按研究选定的片段顺序拼接。详细要求见 [DATA](docs/DATA.md)。
+
+在 `config.env` 中配置输入文件和切片方式。使用 `SLICING_MODE="regenerate"` 时，必须填写非空 `SLICE_SEED`；这种方式会生成可重复的新片段，但不保证与论文原始片段一致。若需要核对论文的原始数值，应使用论文原始切片文件和 `historical` 模式。确认官方模型源码及相应权重可访问后执行：
 
 ```bash
 bash run_all.sh --check
@@ -80,7 +89,7 @@ python predict.py \
 | `work/final/` | 96组汇总表、混淆矩阵、Figure 5 数值核对 |
 | `work/models/` | 独立拟合的LucaVirus+SVM预测模型 |
 
-本仓库不随代码分发原始全长数据、第三方模型权重或已训练好的分类器。论文数值的严格复现还需匹配原始切片及checkpoint；见 [复现说明](docs/REPRODUCIBILITY.md)。
+仓库提供三份全长 FASTA 数据：一份直接以 FASTA 文件提供，两份以 ZIP 压缩包提供，其中 `Other_full_length.zip` 使用 Git LFS。第三方预训练权重和训练后的分类器另行提供。论文数值的严格复现还需匹配原始切片及 checkpoint；见 [复现说明](docs/REPRODUCIBILITY.md)。
 
 ## License
 

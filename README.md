@@ -35,19 +35,28 @@ python scripts/example_run.py
 
 Example outputs are written under `work/example/` and include an OOF summary, a saved classifier, and predictions for two query FASTA records. See [example input](exampleInput/) and [output format](exampleOutput/README.md).
 
-## Reproduce the research workflow
+## Run the full analysis
 
-Place one representative full-length sequence per Virus TaxID in three separate files:
+The repository provides [Plant_full_length.fasta](https://github.com/Fzhang1992/VectoHost/blob/main/Plant_full_length.fasta) directly, and [Insect_full_length.zip](https://github.com/Fzhang1992/VectoHost/blob/main/Insect_full_length.zip) and [Other_full_length.zip](https://github.com/Fzhang1992/VectoHost/blob/main/Other_full_length.zip) as ZIP archives. Download all three files and place the uncompressed FASTAs at:
 
 ```text
 input/full_length/Insect_full_length.fasta
 input/full_length/Plant_full_length.fasta
-input/full_length/Other_full_length.fasta    # .fasta.gz is also supported
+input/full_length/Other_full_length.fasta
 ```
 
-Each FASTA header must start with a unique numeric virus TaxID, e.g. `>123456|virus=example`. The input collections contain the already selected and concatenated (when segmented) viral genomes. See [input requirements](docs/DATA.md).
+`Insect_full_length.zip` contains `Insect_full_length.fasta`, whereas `Other_full_length.zip` contains `full_length/Other_full_length.fasta`. From the repository root, the following commands put each file in the location expected by `config.example.env`:
 
-Edit `config.env` to point to the FASTAs and to specify the slicing mode and seed. Then run:
+```bash
+mkdir -p input/full_length
+cp Plant_full_length.fasta input/full_length/
+unzip -o Insect_full_length.zip -d input/full_length/
+unzip -o Other_full_length.zip -d input/
+```
+
+`Other_full_length.zip` is stored with Git LFS; when cloning, download its actual archive rather than the small LFS pointer file. ZIP archives are not accepted directly as FASTA inputs. No FASTA path changes in `config.env` are needed if the files are placed as above. Each FASTA header must start with a unique numeric virus TaxID, e.g. `>123456|virus=example`. The input collections contain already selected, concatenated (when segmented) viral genomes. See [input requirements](docs/DATA.md).
+
+Edit `config.env` to specify the input FASTAs and sequence-window settings. For `SLICING_MODE="regenerate"`, a nonempty `SLICE_SEED` is required; it generates reproducible new fragments, but may differ from the original manuscript fragments. For numerical comparison to the published analysis, use the original sequence windows (`historical` mode). Then run:
 
 ```bash
 bash run_all.sh --check
@@ -86,7 +95,7 @@ The output includes the query identifier, predicted class, and probabilities for
 
 ## Reproducibility
 
-The full biological FASTAs, pretrained foundation-model weights, and fitted classification models are not distributed with this source package. Reproducing the manuscript's exact values additionally depends on original sequence-window selection and model provenance. The project includes [data and model provenance checks](docs/REPRODUCIBILITY.md) and reports differences rather than replacing observed results with reference values.
+The three full-length biological FASTAs are available in this repository as one plain FASTA and two ZIP archives; `Other_full_length.zip` uses Git LFS. Pretrained foundation-model weights and trained classification models are distributed separately from the source code. Reproducing the manuscript's exact values additionally depends on original sequence-window selection and model provenance. The project includes [data and model provenance checks](docs/REPRODUCIBILITY.md) and reports differences rather than replacing observed results with reference values.
 
 ## License and acknowledgements
 

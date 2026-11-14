@@ -1,0 +1,3 @@
+query_id	original_header	input_length	model_length	model_feature	algorithm	prediction	prob_Insect	prob_Plant	prob_Other
+synthetic_query_1	synthetic_query_1	1480	1000bp	3mer	GaussianNB	Other	0.000000	0.000000	1.000000
+synthetic_query_2	synthetic_query_2	1480	1000bp	3mer	GaussianNB	Other	0.000000	0.000000	1.000000
